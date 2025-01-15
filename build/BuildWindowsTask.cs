@@ -24,7 +24,7 @@ public sealed class BuildWindowsTask : FrostingTask<BuildContext>
             Configuration = "Release",
             PlatformTarget = PlatformTarget.x64
         };
-        buildSettingsx64.WithProperty("WindowsTargetPlatformVersion", "10.0.22621.0");
+        buildSettingsx64.WithProperty("WindowsTargetPlatformVersion", "10.0.17763.0");
         buildSettingsx64.WithProperty("PlatformToolset", "v143");
         context.MSBuild("freeimage/FreeImage.2017.sln", buildSettingsx64);
         context.CopyFile("freeimage/Dist/x64/Freeimage.dll", $"{context.ArtifactsDir}/FreeImage.dll");
@@ -35,7 +35,7 @@ public sealed class BuildWindowsTask : FrostingTask<BuildContext>
             Configuration = "Release",
             PlatformTarget = PlatformTarget.ARM64
         };
-        buildSettingsarm64.WithProperty("WindowsTargetPlatformVersion", "10.0.22621.0");
+        buildSettingsarm64.WithProperty("WindowsTargetPlatformVersion", "10.0.17763.0");
         buildSettingsarm64.WithProperty("PlatformToolset", "v143");
         context.MSBuild("freeimage/FreeImage.2017.sln", buildSettingsarm64);
         context.CopyFile("freeimage/Dist/arm64/Freeimage.dll", $"{context.ArtifactsDir}/FreeImage.dll");
