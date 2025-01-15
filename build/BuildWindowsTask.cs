@@ -18,15 +18,26 @@ public sealed class BuildWindowsTask : FrostingTask<BuildContext>
         context.ReplaceTextInFiles("freeimage/Source/OpenEXR/IlmImf/ImfAttribute.cpp", "std::binary_function", "binary_function");
         context.ReplaceRegexInFiles("freeimage/Source/OpenEXR/IlmImf/ImfAttribute.cpp", "namespace {.*", "namespace { template<class Arg1, class Arg2, class Result> struct binary_function { using first_argument_type = Arg1; using second_argument_type = Arg2; using result_type = Result; };");
 
-        MSBuildSettings buildSettings = new()
+        MSBuildSettings buildSettingsx64 = new()
         {
             Verbosity = Verbosity.Normal,
             Configuration = "Release",
             PlatformTarget = PlatformTarget.x64
         };
-        buildSettings.WithProperty("WindowsTargetPlatformVersion", "10.0.17763.0");
-        buildSettings.WithProperty("PlatformToolset", "v143");
-        context.MSBuild("freeimage/FreeImage.2017.sln", buildSettings);
+        buildSettingsx64.WithProperty("WindowsTargetPlatformVersion", "10.0.22621.0");
+        buildSettingsx64.WithProperty("PlatformToolset", "v143");
+        context.MSBuild("freeimage/FreeImage.2017.sln", buildSettingsx64);
         context.CopyFile("freeimage/Dist/x64/Freeimage.dll", $"{context.ArtifactsDir}/FreeImage.dll");
+
+        MSBuildSettings buildSettingsarm64 = new()
+        {
+            Verbosity = Verbosity.Normal,
+            Configuration = "Release",
+            PlatformTarget = PlatformTarget.ARM64
+        };
+        buildSettingsarm64.WithProperty("WindowsTargetPlatformVersion", "10.0.22621.0");
+        buildSettingsarm64.WithProperty("PlatformToolset", "v143");
+        context.MSBuild("freeimage/FreeImage.2017.sln", buildSettingsarm64);
+        context.CopyFile("freeimage/Dist/arm64/Freeimage.dll", $"{context.ArtifactsDir}/FreeImage.dll");
     }
 }
